@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weerapat Srikongpan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fafaf9;
+      --surface: #f4f3f0;
+      --border: rgba(0,0,0,0.08);
+      --border-med: rgba(0,0,0,0.14);
+      --text: #1a1a18;
+      --text-2: #5a5a56;
+      --text-3: #9a9a94;
+      --accent: #1a1a18;
+      --mono: 'DM Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,250,249,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 12px;
+      font-family: var(--mono);
+      color: var(--text-3);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── LAYOUT ── */
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 5rem 2rem 6rem;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      margin-bottom: 5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--text-3);
+      margin-bottom: 1.25rem;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #4caf74;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 strong { font-weight: 500; }
+    .hero-role {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text-2);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+    .hero-bio {
+      font-size: 15px;
+      color: var(--text-2);
+      line-height: 1.8;
+      max-width: 560px;
+      margin-bottom: 1.75rem;
+    }
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .chip {
+      font-family: var(--mono);
+      font-size: 10px;
+      padding: 4px 12px;
+      border: 0.5px solid var(--border-med);
+      border-radius: 100px;
+      color: var(--text-2);
+      letter-spacing: 0.04em;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .chip:hover { border-color: var(--text-3); color: var(--text); }
+
+    /* ── SECTION ── */
+    section { margin-bottom: 4rem; animation: fadeUp 0.6s ease both; }
+    section:nth-child(2) { animation-delay: 0.1s; }
+    section:nth-child(3) { animation-delay: 0.2s; }
+
+    .sec-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .sec-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--text-3);
+      white-space: nowrap;
+    }
+    .sec-line {
+      flex: 1;
+      height: 0.5px;
+      background: var(--border);
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 1.5rem;
+      padding: 1.75rem 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .exp-item:first-child { border-top: 0.5px solid var(--border); }
+    .exp-meta { padding-top: 2px; }
+    .exp-date {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-3);
+      letter-spacing: 0.04em;
+      line-height: 1.8;
+    }
+    .exp-company {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-3);
+      margin-top: 4px;
+    }
+    .exp-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .exp-desc {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.75;
+    }
+    .exp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 10px;
+    }
+    .exp-tag {
+      font-family: var(--mono);
+      font-size: 9px;
+      padding: 2px 8px;
+      background: var(--surface);
+      border-radius: 100px;
+      color: var(--text-3);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── PROJECTS ── */
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .proj-card {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      transition: border-color 0.15s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .proj-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--border-med), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .proj-card:hover { border-color: var(--border-med); transform: translateY(-2px); }
+    .proj-card:hover::before { opacity: 1; }
+    .proj-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+    .proj-name {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .proj-arrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-3);
+    }
+    .proj-desc {
+      font-size: 12px;
+      color: var(--text-2);
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+    .proj-footer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .proj-tag {
+      font-family: var(--mono);
+      font-size: 9px;
+      padding: 2px 8px;
+      background: var(--surface);
+      border-radius: 100px;
+      color: var(--text-3);
+    }
+
+    /* ── CONTACT ── */
+    .contact-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .contact-row:first-child { border-top: 0.5px solid var(--border); }
+    .contact-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-3);
+      letter-spacing: 0.06em;
+    }
+    .contact-value {
+      font-size: 13px;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .contact-value:hover { color: var(--text); }
+
+    /* ── FOOTER ── */
+    footer {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
+      border-top: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-text {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-3);
+      letter-spacing: 0.04em;
+    }
+    .footer-link {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-3);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.15s;
+    }
+    .footer-link:hover { color: var(--text); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      main { padding: 3rem 1.25rem 4rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .exp-meta { display: flex; gap: 1rem; align-items: baseline; }
+      nav { padding: 0 1.25rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="#">WEERAPAT.SRI</a>
+      <ul class="nav-links">
+        <li><a href="#about">about</a></li>
+        <li><a href="#experience">experience</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#education">education</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- HERO / ABOUT -->
+    <div class="hero" id="about">
+      <p class="hero-badge">available for opportunities</p>
+      <h1>Weerapat Srikongpan</h1>
+      <p class="hero-role">Data Analyst · Machine Learning Researcher · Project Coordinator</p>
+      <p class="hero-bio">
+        Analytical and versatile professional with experience in data analysis, machine learning research, project coordination, and web platform development. Skilled in turning complex problems into practical solutions across healthcare, education, and business domains.
+      </p>
+      <div class="skill-chips">
+        <span class="chip">Python</span>
+        <span class="chip">SQL</span>
+        <span class="chip">Numpy</span>
+        <span class="chip">Pandas</span>
+        <span class="chip">PyTorch</span>
+        <span class="chip">Scikit-learn</span>
+        <span class="chip">R</span>
+        <span class="chip">IBM SPSS Statistics</span>
+        <span class="chip">Microsoft Office</span>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="sec-header">
+        <span class="sec-label">EXPERIENCE</span>
+        <div class="sec-line"></div>
+      </div>
+      <div class="exp-list">
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-date">2026 — present</div>
+            <div class="exp-company">Tokyo Academy</div>
+          </div>
+          <div>
+            <p class="exp-title">Founder / Web Administrator</p>
+            <p class="exp-desc">
+              Founded and managed an online education platform, overseeing web operations, system maintenance, content updates, and deployment using Django, PostgreSQL, and Render.
+            </p>
+            <div class="exp-tags">
+              <span class="exp-tag">Web Administration</span>
+              <span class="exp-tag">Django</span>
+              <span class="exp-tag">PostgreSQL</span>
+              <span class="exp-tag">Deployment</span>
+              <span class="exp-tag">System Maintenance</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-date">2024 — 2025</div>
+            <div class="exp-company"></div>
+          </div>
+          <div>
+            <p class="exp-title">Project Manager – Telesales Support System</p>
+            <p class="exp-desc">
+              Led the development of a telesales support system by managing project scope, timelines, and cross-functional coordination to ensure successful delivery. Oversaw system requirements, monitored project progress, and facilitated communication between stakeholders and development teams. Conducted SIT (System Integration Testing) and UAT (User Acceptance Testing) to validate system functionality, business requirements, and overall readiness before deployment.
+            </p>
+            <div class="exp-tags">
+              <span class="exp-tag">Project Management</span>
+              <span class="exp-tag">SIT Testing</span>
+              <span class="exp-tag">UAT Testing</span>
+              <span class="exp-tag">Stakeholder Coordination</span>
+              <span class="exp-tag">System Implementation</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-date">2022 — 2023</div>
+            <div class="exp-company">Khon Kaen University</div>
+          </div>
+          <div>
+            <p class="exp-title">Research Assistant – Bone Age AI (Q3)</p>
+            <p class="exp-desc">
+              Supported AI-based bone age prediction research using pediatric X-ray images. Managed imaging datasets, performed quality checks, assisted preprocessing, and supported publication processes.
+            </p>
+            <div class="exp-tags">
+              <span class="exp-tag">Medical Imaging</span>
+              <span class="exp-tag">AI Research</span>
+              <span class="exp-tag">Data Management</span>
+              <span class="exp-tag">X-ray Images</span>
+              <span class="exp-tag">Documentation</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-date">2022 — 2023</div>
+            <div class="exp-company">Khon Kaen University</div>
+          </div>
+          <div>
+            <p class="exp-title">Survey Analyst</p>
+            <p class="exp-desc">
+              Conducted survey data analysis for Science Week at Khon Kaen University using Exploratory Data Analysis (EDA). Responsible for cleaning and organizing survey responses, identifying trends and patterns, generating statistical summaries, and presenting insights to support event evaluation and decision-making.
+            </p>
+            <div class="exp-tags">
+              <span class="exp-tag">Exploratory Data Analysis</span>
+              <span class="exp-tag">Data Cleaning</span>
+              <span class="exp-tag">Survey Analysis</span>
+              <span class="exp-tag">Statistics</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="sec-header">
+        <span class="sec-label">PROJECTS</span>
+        <div class="sec-line"></div>
+      </div>
+      <div class="proj-grid">
+
+        <a class="proj-card" href="https://doi.org/10.1109/ICITEE66631.2025.11338449" target="_blank">
+          <div class="proj-top">
+            <span class="proj-name">CKD Survival Risk Prediction</span>
+            <span class="proj-arrow">↗</span>
+          </div>
+          <p class="proj-desc">Developed survival models to predict 2-year ESKD progression in Thai patients using Cox Proportional Hazards and Random Survival Forest. Included data imputation, feature analysis, and model evaluation. Presented internationally.</p>
+          <div class="proj-footer">
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">scikit-survival</span>
+            <span class="proj-tag">Data Analysis</span>
+            <span class="proj-tag">Machine Learning</span>
+            <span class="proj-tag">Healthcare</span>
+          </div>
+        </a>
+
+        <a class="proj-card" href="https://tokyoacademy.onrender.com" target="_blank">
+          <div class="proj-top">
+            <span class="proj-name">Tokyo Academy – E-Learning Platform</span>
+            <span class="proj-arrow">↗</span>
+          </div>
+          <p class="proj-desc">Designed and developed an online learning platform with scalable backend architecture using Django and PostgreSQL. Implemented authentication, content management, and production deployment on Render.</p>
+          <div class="proj-footer">
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">Django</span>
+            <span class="proj-tag">PostgreSQL</span>
+            <span class="proj-tag">Deployment</span>
+            <span class="proj-tag">Full-stack</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="sec-header">
+        <span class="sec-label">EDUCATION</span>
+        <div class="sec-line"></div>
+      </div>
+      <div class="exp-list">
+ 
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-date">2022 — 2025</div>
+            <div class="exp-company">Khon Kaen University</div>
+          </div>
+          <div>
+            <p class="exp-title">M.Sc. Applied Statistics</p>
+            <p class="exp-desc">
+              Studied advanced statistical methods, data analysis, and predictive modeling with a focus on applying statistics to real-world problems. Gained hands-on experience in machine learning, survival analysis, research methodology, and data-driven decision-making using tools such as Python, R, SQL, and SPSS.
+            </p>
+            <div class="exp-tags">
+              <span class="exp-tag">Research</span>
+              <span class="exp-tag">Machine Learning</span>
+              <span class="exp-tag">Survival Analysis</span>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-date">2017 — 2021</div>
+            <div class="exp-company">King Mongkut's University of Technology Thonburi</div>
+          </div>
+          <div>
+            <p class="exp-title">B.Sc. Mathematics</p>
+            <p class="exp-desc">
+              Studied mathematics including calculus, algebra, statistics, and numerical methods. Developed strong analytical thinking, logical reasoning, and problem-solving skills through quantitative coursework and applied modeling.
+            </p>
+            <div class="exp-tags">
+              <span class="exp-tag">Logic</span>
+              <span class="exp-tag">Quantitative Thinking</span>
+              <span class="exp-tag">Problem Solving</span>
+            </div>
+          </div>
+        </div>
+ 
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="sec-header">
+        <span class="sec-label">CONTACT</span>
+        <div class="sec-line"></div>
+      </div>
+      <div>
+        <div class="contact-row">
+          <span class="contact-label">EMAIL</span>
+          <a class="contact-value" href="mailto:srik.weerapat@gmail.com">srik.weerapat@gmail.com</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">LOCATION</span>
+          <span class="contact-value">Khon Kaen, Thailand</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span class="footer-text">© 2026 Weerapat Srikongpan</span>
+    <a class="footer-link" href="#">back to top ↑</a>
+  </footer>
+
+</body>
+</html>
